@@ -18,9 +18,15 @@ import android.widget.Toast;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthSettings;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuthSettings settings;
+    private FirebaseUser firebaseUser;
     private BottomAppBar bottomAppBar;
     private BottomSheetDialog bottomSheetDialog;
 
@@ -28,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser(); // authenticated user
+
         bottomAppBar = findViewById(R.id.bottom_app_bar);
         bottomAppBar.replaceMenu(R.menu.bottomappbar_menu);
         bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -42,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.app_bar_fav:
                         Toast.makeText(MainActivity.this, "fav clicked.", Toast.LENGTH_SHORT).show();
-                        displaySelectedScreen(R.id.item1);
+                        displaySelectedScreen(R.id.bottom_bar_navigation_menu_item_about);
                         break;
                     case R.id.app_bar_search:
                         Toast.makeText(MainActivity.this, "search clicked.", Toast.LENGTH_SHORT).show();
@@ -99,16 +109,17 @@ public class MainActivity extends AppCompatActivity {
 
         //initializing the fragment object which is selected
         switch (itemId) {
-            case R.id.item1:
+            case R.id.bottom_bar_navigation_menu_item_profile:
                 fragment = new ProfileScreen();
                 break;
-            case R.id.item2:
+            case R.id.bottom_bar_navigation_menu_item_announcements:
                 fragment = new AnnouncementScreen();
                 break;
-            case R.id.item3:
+            case R.id.bottom_bar_navigation_menu_item_about:
                 fragment = new AboutScreen();
                 break;
         }
+        bottomSheetDialog.dismiss();
 
         //replacing the fragment
         if (fragment != null) {

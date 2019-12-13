@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item1"
+        android:id="@+id/bottom_bar_navigation_menu_item_profile"
         android:title="Profilim"/>
     <item
-        android:id="@+id/item2"
+        android:id="@+id/bottom_bar_navigation_menu_item_announcements"
         android:title="Duyurular"/>
     <item
-        android:id="@+id/item3"
+        android:id="@+id/bottom_bar_navigation_menu_item_about"
         android:title="Hakkımızda"/>
 </menu>
