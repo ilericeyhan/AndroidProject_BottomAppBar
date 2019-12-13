@@ -19,5 +19,5 @@
         android:id="@+id/app_bar_settings"
         android:icon="@drawable/ic_settings_24px"
         android:title="SETTINGS"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
 </menu>

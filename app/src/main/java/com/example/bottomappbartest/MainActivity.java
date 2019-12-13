@@ -3,6 +3,10 @@ package com.example.bottomappbartest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -38,14 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.app_bar_fav:
                         Toast.makeText(MainActivity.this, "fav clicked.", Toast.LENGTH_SHORT).show();
+                        displaySelectedScreen(R.id.item1);
                         break;
                     case R.id.app_bar_search:
                         Toast.makeText(MainActivity.this, "search clicked.", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.app_bar_settings:
-                        Toast.makeText(MainActivity.this, "settings clicked.", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.sandwich_menu:
                         Toast.makeText(MainActivity.this, "settings clicked.", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
-                switch (id){
+              /*  switch (id){
                     case R.id.item1:
                         Toast.makeText(MainActivity.this,"Item 1 Clicked",Toast.LENGTH_SHORT).show();
                         bottomSheetDialog.dismiss();
@@ -83,13 +85,36 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"Item 3 Clicked",Toast.LENGTH_SHORT).show();
                         bottomSheetDialog.dismiss();
                         break;
-                    case R.id.item4:
-                        Toast.makeText(MainActivity.this,"Item 4 Clicked",Toast.LENGTH_SHORT).show();
-                        bottomSheetDialog.dismiss();
-                        break;
-                }
+                }*/
+                displaySelectedScreen(id);
                 return false;
             }
         });
+    }
+
+    private void displaySelectedScreen(int itemId) {
+
+        //creating fragment object
+        Fragment fragment = null;
+
+        //initializing the fragment object which is selected
+        switch (itemId) {
+            case R.id.item1:
+                fragment = new ProfileScreen();
+                break;
+            case R.id.item2:
+                fragment = new AnnouncementScreen();
+                break;
+            case R.id.item3:
+                fragment = new AboutScreen();
+                break;
+        }
+
+        //replacing the fragment
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }
     }
 }
